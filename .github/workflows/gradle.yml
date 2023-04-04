@@ -34,3 +34,17 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
+    
+    - name: Make zip file
+      run: zip -r ./practice-deploy.zip .
+      shell: bash
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${o]1VUgR]zP}
+        aws-secret-access-key: ${o]1VUgR]zP6010500604}
+        aws-region: ap-northeast-2
+        
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./practice-deploy.zip s3://$S3_BUCKET_NAME/practice-deploy.zip 
